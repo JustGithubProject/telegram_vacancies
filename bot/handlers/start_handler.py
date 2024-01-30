@@ -4,6 +4,7 @@
 
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram import types
+from utils.helpers import MyStates
 
 # Объявляем клавиатуру
 keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
@@ -20,3 +21,4 @@ keyboard.add(*buttons)
 
 async def send_welcome(message: types.Message):
     await message.answer("Привет! Выбери нужный тебе вариант!", reply_markup=keyboard)
+    await MyStates.choice.set()
