@@ -28,4 +28,6 @@ async def process_choice(message: types.Message, state: FSMContext):
     elif message.text == "Я ищу работу":
         await message.answer("Вы выбрали: Я ищу работу")
 
+    # Сохраняем состояние выбора пользователя
+    await state.update_data(choice=message.text)
     await state.finish()

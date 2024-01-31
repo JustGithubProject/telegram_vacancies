@@ -12,6 +12,7 @@ load_dotenv()
 class Config:
     def __init__(self):
         self.TOKEN = os.getenv("TOKEN")
+        self.DATABASE_URL = os.getenv("DATABASE_URL")
 
 
 config_variables = Config()
