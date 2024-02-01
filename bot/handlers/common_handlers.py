@@ -10,23 +10,32 @@ from utils.helpers import MyStates
 
 
 # Объявляем клавиатуру
-keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+keyboard_first = ReplyKeyboardMarkup(resize_keyboard=True)
+keyboard_second = ReplyKeyboardMarkup(resize_keyboard=True)
 
 # Добавляем кнопки на клавиатуру
-buttons = [
+buttons_first = [
     KeyboardButton(text="Смотреть резюме"),
     KeyboardButton(text="Создать вакансию"),
 ]
 
+buttons_second = [
+    KeyboardButton(text="Смотреть вакансии"),
+    KeyboardButton(text="Создать резюме")
+]
+
 # Добавляем кнопки на клавиатуру
-keyboard.add(*buttons)
+keyboard_first.add(*buttons_first)
+keyboard_second.add(*buttons_second)
 
 
 async def process_choice(message: types.Message, state: FSMContext):
     if message.text == "Я предлагаю работу":
-        await message.answer("Вы выбрали: Я предлагаю работу", reply_markup=keyboard)
+        await message.answer("Вы выбрали: Я предлагаю работу", reply_markup=keyboard_first)
+        #await state.update_data(choice=message.text)
+        #await MyStates.choice.set()
     elif message.text == "Я ищу работу":
-        await message.answer("Вы выбрали: Я ищу работу")
+        await message.answer("Вы выбрали: Я ищу работу", reply_markup=keyboard_second)
 
     # Сохраняем состояние выбора пользователя
     await state.update_data(choice=message.text)
