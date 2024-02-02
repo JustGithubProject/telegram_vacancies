@@ -8,3 +8,4 @@ from aiogram.dispatcher.filters.state import StatesGroup
 # Определение состояний
 class MyStates(StatesGroup):
     choice = State()
+    entering_name = State()

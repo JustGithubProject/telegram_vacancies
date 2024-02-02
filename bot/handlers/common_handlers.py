@@ -6,6 +6,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import KeyboardButton
 from aiogram.types import ReplyKeyboardMarkup
 
+from handlers.find_job_handler import process_create_resume
 from utils.helpers import MyStates
 
 
@@ -32,11 +33,10 @@ keyboard_second.add(*buttons_second)
 async def process_choice(message: types.Message, state: FSMContext):
     if message.text == "Я предлагаю работу":
         await message.answer("Вы выбрали: Я предлагаю работу", reply_markup=keyboard_first)
-        #await state.update_data(choice=message.text)
-        #await MyStates.choice.set()
+
     elif message.text == "Я ищу работу":
         await message.answer("Вы выбрали: Я ищу работу", reply_markup=keyboard_second)
 
     # Сохраняем состояние выбора пользователя
     await state.update_data(choice=message.text)
-    await state.finish()
+
