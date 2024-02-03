@@ -1,11 +1,10 @@
 #######################################
 # Вспомогательные функции и утилиты.  #
 #######################################
-from aiogram.dispatcher.filters.state import State
-from aiogram.dispatcher.filters.state import StatesGroup
+from aiogram.fsm.state import State, StatesGroup
 
 
 # Определение состояний
-class MyStates(StatesGroup):
+class FormToCreateResume(StatesGroup):
     choice = State()
     entering_name = State()

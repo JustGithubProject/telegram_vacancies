@@ -2,7 +2,7 @@
 # Обработчик команды для поиска работы #
 #######################################
 from aiogram import types
-from aiogram.dispatcher import FSMContext
+from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardMarkup
 
 keyboard_first = ReplyKeyboardMarkup(resize_keyboard=True)

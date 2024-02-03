@@ -3,8 +3,11 @@
 ###############################
 
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.filters import CommandStart
 from aiogram import types
-from utils.helpers import MyStates
+
+from bot.main import first_router
+
 
 # Объявляем клавиатуру
 keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
@@ -19,6 +22,6 @@ buttons = [
 keyboard.add(*buttons)
 
 
+@first_router.message(CommandStart())
 async def send_welcome(message: types.Message):
     await message.answer("Привет! Выбери нужный тебе вариант!", reply_markup=keyboard)
-    await MyStates.choice.set()
