@@ -14,9 +14,6 @@ from aiogram import (
 from aiogram.enums import ParseMode
 
 from config import config_variables
-from handlers.find_job_handler import process_create_resume
-from handlers.start_handler import send_welcome
-from handlers.common_handlers import process_choice
 
 
 first_router = Router()

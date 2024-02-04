@@ -7,25 +7,11 @@ from aiogram.types import KeyboardButton
 from aiogram.types import ReplyKeyboardMarkup
 
 from handlers.find_job_handler import process_create_resume
+from main import first_router
 
 
-# Объявляем клавиатуру
-
-keyboard_second = ReplyKeyboardMarkup(resize_keyboard=True)
-
-# Добавляем кнопки на клавиатуру
-
-
-buttons_second = [
-
-]
-
-# Добавляем кнопки на клавиатуру
-
-keyboard_second.add(*buttons_second)
-
-
-async def process_choice(message: types.Message, state: FSMContext):
+@first_router.message()
+async def process_choice(message: types.Message):
     if message.text == "Я предлагаю работу":
         await message.answer("Вы выбрали: Я предлагаю работу", reply_markup=ReplyKeyboardMarkup(
             keyboard=[

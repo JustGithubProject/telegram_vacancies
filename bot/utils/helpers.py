@@ -6,5 +6,7 @@ from aiogram.fsm.state import State, StatesGroup
 
 # Определение состояний
 class FormToCreateResume(StatesGroup):
-    choice = State()
     entering_name = State()
+    skills = State()
+    experience = State()
+    education = State()
