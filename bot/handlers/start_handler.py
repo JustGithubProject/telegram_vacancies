@@ -1,27 +1,27 @@
 ###############################
 # Обработчик команды /start  #
 ###############################
-
+from aiogram import Router
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from aiogram import types
 
-from bot.main import first_router
+start_router = Router()
 
 
-# Объявляем клавиатуру
-keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-
-# Добавляем кнопки на клавиатуру
-buttons = [
-    KeyboardButton(text="Я предлагаю работу"),
-    KeyboardButton(text="Я ищу работу"),
-]
-
-# Добавляем кнопки на клавиатуру
-keyboard.add(*buttons)
-
-
-@first_router.message(CommandStart())
+@start_router.message(Command(commands="start"))
 async def send_welcome(message: types.Message):
-    await message.answer("Привет! Выбери нужный тебе вариант!", reply_markup=keyboard)
+
+    # Отправляем приветственное сообщение с клавиатурой
+    await message.answer(
+        "Привет! Выбери нужный тебе вариант!",
+        reply_markup=ReplyKeyboardMarkup(
+            keyboard=[
+                [
+                    KeyboardButton(text="Я предлагаю работу"),
+                    KeyboardButton(text="Я ищу работу"),
+                ]
+            ],
+            resize_keyboard=True
+        )
+    )

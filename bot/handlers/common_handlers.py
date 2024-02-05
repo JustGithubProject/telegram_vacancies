@@ -1,16 +1,17 @@
 #########################################################################
 # Общие обработчики, например, обработчик для неопознанных команд.      #
 #########################################################################
+from aiogram import Router
 from aiogram import types
 from aiogram.fsm.context import FSMContext
 from aiogram.types import KeyboardButton
 from aiogram.types import ReplyKeyboardMarkup
 
-from handlers.find_job_handler import process_create_resume
-from main import first_router
+
+common_router = Router()
 
 
-@first_router.message()
+@common_router.message()
 async def process_choice(message: types.Message):
     if message.text == "Я предлагаю работу":
         await message.answer("Вы выбрали: Я предлагаю работу", reply_markup=ReplyKeyboardMarkup(
