@@ -1,12 +1,16 @@
 #########################################################################
 # Общие обработчики, например, обработчик для неопознанных команд.      #
 #########################################################################
-from aiogram import Router
-from aiogram import types
-from aiogram.fsm.context import FSMContext
-from aiogram.types import KeyboardButton
-from aiogram.types import ReplyKeyboardMarkup
+from aiogram import (
+    Router,
+    types
+)
 
+from aiogram.fsm.context import FSMContext
+from aiogram.types import (
+    KeyboardButton,
+    ReplyKeyboardMarkup
+)
 
 common_router = Router()
 
