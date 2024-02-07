@@ -17,12 +17,13 @@ from config import config_variables
 from handlers.find_job_handler import find_job_router
 from handlers.start_handler import start_router
 from handlers.common_handlers import common_router
+from handlers.post_job_handler import post_job_router
 
 
 async def main():
     bot = Bot(token=config_variables.TOKEN, parse_mode=ParseMode.HTML)
     dp = Dispatcher()
-    dp.include_routers(start_router, find_job_router, common_router)
+    dp.include_routers(start_router, find_job_router, common_router, post_job_router)
 
     await dp.start_polling(bot)
 

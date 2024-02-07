@@ -10,3 +10,9 @@ class FormToCreateResume(StatesGroup):
     skills = State()
     experience = State()
     education = State()
+
+
+class FormToCreateVacancy(StatesGroup):
+    company_name = State()
+    description = State()
+    # ....

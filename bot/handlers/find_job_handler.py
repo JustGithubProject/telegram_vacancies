@@ -11,6 +11,7 @@ from utils.helpers import FormToCreateResume
 
 find_job_router = Router()
 
+# Временное хранилище, позже узнаю как с ним
 storage_dict = {}
 
 
@@ -19,7 +20,7 @@ async def process_create_resume(message: types.Message, state: FSMContext):
     print("Working")
     await state.set_state(FormToCreateResume.entering_name)
     await message.answer(
-        "Введите ваше имя: ",
+        "Имя Фамилия: ",
         reply_markup=ReplyKeyboardRemove()
     )
 
@@ -60,12 +61,11 @@ async def process_education(message: types.Message, state: FSMContext):
     storage_dict["education"] = message.text
     await message.answer(
         f"""
-            
-            Имя: {storage_dict['entering_name']}
-            Навыки: {storage_dict["skills"]}
-            Опыт: {storage_dict["experience"]}
-            Образование: {storage_dict["education"]}
-            
+        Резюме:
+        Имя: {storage_dict['entering_name']}
+        Навыки: {storage_dict["skills"]}
+        Опыт: {storage_dict["experience"]}
+        Образование: {storage_dict["education"]}
         """
     )
 
