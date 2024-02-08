@@ -23,8 +23,16 @@ from handlers.post_job_handler import post_job_router
 async def main():
     bot = Bot(token=config_variables.TOKEN, parse_mode=ParseMode.HTML)
     dp = Dispatcher()
-    dp.include_routers(start_router, find_job_router, common_router, post_job_router)
 
+    # Включение обработчиков роутеров для различных типов обработки запросов
+    dp.include_routers(
+        start_router,
+        find_job_router,
+        post_job_router,
+        common_router
+    )
+
+    # Запуск бота с использованием диспетчера
     await dp.start_polling(bot)
 
 

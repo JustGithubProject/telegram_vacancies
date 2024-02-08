@@ -17,6 +17,13 @@ storage_dict = {}
 
 @find_job_router.message(F.text == "Создать резюме")
 async def process_create_resume(message: types.Message, state: FSMContext):
+    """
+     Обрабатывает запрос на создание резюме.
+
+     Parameters:
+         message (types.Message): Сообщение пользователя.
+         state (FSMContext): Контекст состояния пользовательского диалога.
+     """
     print("Working")
     await state.set_state(FormToCreateResume.entering_name)
     await message.answer(
@@ -27,6 +34,13 @@ async def process_create_resume(message: types.Message, state: FSMContext):
 
 @find_job_router.message(FormToCreateResume.entering_name)
 async def process_name(message: types.Message, state: FSMContext):
+    """
+    Обрабатывает ввод имени и фамилии при создании резюме.
+
+    Parameters:
+        message (types.Message): Сообщение пользователя с введенным именем и фамилией.
+        state (FSMContext): Контекст состояния пользовательского диалога.
+    """
     await state.update_data(entering_name=message.text)
     await state.set_state(FormToCreateResume.skills)
     await message.answer(
@@ -37,6 +51,13 @@ async def process_name(message: types.Message, state: FSMContext):
 
 @find_job_router.message(FormToCreateResume.skills)
 async def process_skills(message: types.Message, state: FSMContext):
+    """
+    Обрабатывает ввод навыков при создании резюме.
+
+    Parameters:
+        message (types.Message): Сообщение пользователя с введенными навыками.
+        state (FSMContext): Контекст состояния пользовательского диалога.
+    """
     await state.update_data(skills=message.text)
     await state.set_state(FormToCreateResume.experience)
     await message.answer(
@@ -47,6 +68,13 @@ async def process_skills(message: types.Message, state: FSMContext):
 
 @find_job_router.message(FormToCreateResume.experience)
 async def process_experience(message: types.Message, state: FSMContext):
+    """
+    Обрабатывает ввод опыта при создании резюме.
+
+    Parameters:
+        message (types.Message): Сообщение пользователя с введенным опытом.
+        state (FSMContext): Контекст состояния пользовательского диалога.
+    """
     await state.update_data(experience=message.text)
     await state.set_state(FormToCreateResume.education)
     await message.answer(
@@ -57,6 +85,13 @@ async def process_experience(message: types.Message, state: FSMContext):
 
 @find_job_router.message(FormToCreateResume.education)
 async def process_education(message: types.Message, state: FSMContext):
+    """
+    Обрабатывает ввод образования при создании резюме.
+
+    Parameters:
+        message (types.Message): Сообщение пользователя с введенным образованием.
+        state (FSMContext): Контекст состояния пользовательского диалога.
+    """
     await state.update_data(education=message.text)
     storage_dict["education"] = message.text
     await message.answer(

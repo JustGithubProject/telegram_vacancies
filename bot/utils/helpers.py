@@ -15,4 +15,7 @@ class FormToCreateResume(StatesGroup):
 class FormToCreateVacancy(StatesGroup):
     company_name = State()
     description = State()
+    location = State()
+    salary = State()
+    contacts = State()
     # ....
