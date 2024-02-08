@@ -17,8 +17,8 @@ common_router = Router()
 
 @common_router.message()
 async def process_choice(message: types.Message):
-    if message.text == "Я предлагаю работу":
-        await message.answer("Вы выбрали: Я предлагаю работу", reply_markup=ReplyKeyboardMarkup(
+    if message.text == "1️⃣ Я предлагаю работу":
+        await message.answer("✅ Вы выбрали: Я предлагаю работу", reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [
                     KeyboardButton(text="Смотреть резюме"),
@@ -29,8 +29,8 @@ async def process_choice(message: types.Message):
         )
     )
 
-    elif message.text == "Я ищу работу":
-        await message.answer("Вы выбрали: Я ищу работу", reply_markup=ReplyKeyboardMarkup(
+    elif message.text == "2️⃣ Я ищу работу":
+        await message.answer("✅ Вы выбрали: Я ищу работу", reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [
                     KeyboardButton(text="Смотреть вакансии"),

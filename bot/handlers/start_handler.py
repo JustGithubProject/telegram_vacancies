@@ -14,12 +14,12 @@ async def send_welcome(message: types.Message):
 
     # Отправляем приветственное сообщение с клавиатурой
     await message.answer(
-        "Привет! Выбери нужный тебе вариант!",
+        "😃 Привет! Выбери нужный тебе вариант!",
         reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [
-                    KeyboardButton(text="Я предлагаю работу"),
-                    KeyboardButton(text="Я ищу работу"),
+                    KeyboardButton(text="1️⃣ Я предлагаю работу"),
+                    KeyboardButton(text="2️⃣ Я ищу работу"),
                 ]
             ],
             resize_keyboard=True

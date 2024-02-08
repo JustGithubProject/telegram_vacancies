@@ -30,6 +30,7 @@ async def process_create_resume(message: types.Message, state: FSMContext):
         "Имя Фамилия: ",
         reply_markup=ReplyKeyboardRemove()
     )
+    storage_dict["user_id"] = message.from_user.id
 
 
 @find_job_router.message(FormToCreateResume.entering_name)
@@ -103,6 +104,7 @@ async def process_education(message: types.Message, state: FSMContext):
         Образование: {storage_dict["education"]}
         """
     )
+    print(storage_dict)
 
 
 
