@@ -19,6 +19,8 @@ from handlers.start_handler import start_router
 from handlers.common_handlers import common_router
 from handlers.post_job_handler import post_job_router
 
+from utils.database import create_tables
+
 
 async def main():
     bot = Bot(token=config_variables.TOKEN, parse_mode=ParseMode.HTML)
@@ -34,6 +36,7 @@ async def main():
 
     # Запуск бота с использованием диспетчера
     await dp.start_polling(bot)
+    await create_tables()
 
 
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
