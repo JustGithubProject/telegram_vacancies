@@ -36,7 +36,6 @@ async def main():
 
     # Запуск бота с использованием диспетчера
     await dp.start_polling(bot)
-    await create_tables()
 
 
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)

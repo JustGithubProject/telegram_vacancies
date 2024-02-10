@@ -15,6 +15,10 @@ from sqlalchemy.orm import (
 
 from config import config_variables
 
+from utils.exceptions import (
+    DatabaseCreationError
+)
+
 
 # Асинхронный движок SQLAlchemy
 engine = create_async_engine(config_variables.DATABASE_URL, echo=True)
@@ -32,8 +36,14 @@ async_session = sessionmaker(
 
 # Создаем таблицы в базе данных
 async def create_tables():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+    except DatabaseCreationError as ex:
+        print(f"Database creation error: {ex}")
+    except Exception as ex:
+        print(f"An unexpected  error occurred: {ex}")
+
 
 
 
