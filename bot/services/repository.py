@@ -36,9 +36,16 @@ class ResumeRepository(BaseRepository):
         resume = result.scalars().first()
         return resume
 
+    async def delete_resume(self, resume_id: int):
+        resume = await self.get_resume_by_id(resume_id)
+        if not resume:
+            raise ValueError(f"Resume with ID {resume_id} does not exist")
 
-    async def delete_resume(self):
-        pass
+        await self.session.delete(resume)
+        await self.session.commit()
 
     async def list_resumes(self):
-        pass
+        result = await self.session.execute(select(Resume))
+        resumes = result.scalars().all()
+        return resumes
+
