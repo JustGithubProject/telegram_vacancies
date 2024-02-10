@@ -14,12 +14,10 @@ from aiogram.enums import ParseMode
 
 from config import config_variables
 
-from handlers.find_job_handler import find_job_router
-from handlers.start_handler import start_router
-from handlers.common_handlers import common_router
-from handlers.post_job_handler import post_job_router
-
-from utils.database import create_tables
+from bot.handlers.find_job_handler import find_job_router
+from bot.handlers.start_handler import start_router
+from bot.handlers.common_handlers import common_router
+from bot.handlers.post_job_handler import post_job_router
 
 
 async def main():

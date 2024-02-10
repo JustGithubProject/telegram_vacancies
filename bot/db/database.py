@@ -13,9 +13,9 @@ from sqlalchemy.orm import (
     sessionmaker
 )
 
-from config import config_variables
+from bot.config import config_variables
 
-from utils.exceptions import (
+from bot.utils.exceptions import (
     DatabaseCreationError
 )
 
@@ -33,16 +33,6 @@ async_session = sessionmaker(
     expire_on_commit=False
 )
 
-
-# Создаем таблицы в базе данных
-async def create_tables():
-    try:
-        async with engine.begin() as conn:
-            await conn.run_sync(Base.metadata.create_all)
-    except DatabaseCreationError as ex:
-        print(f"Database creation error: {ex}")
-    except Exception as ex:
-        print(f"An unexpected  error occurred: {ex}")
 
 
 
