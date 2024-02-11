@@ -34,6 +34,8 @@ async_session = sessionmaker(
 )
 
 
+session = async_session()
+
 
 
 

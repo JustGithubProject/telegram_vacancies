@@ -6,13 +6,21 @@ from aiogram import types, html
 from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardRemove
 
-from utils.helpers import FormToCreateResume
+from bot.utils.helpers import FormToCreateResume
+
+
+from bot.services.repository import ResumeRepository
+
+from bot.db.database import session
 
 
 find_job_router = Router()
 
 # Временное хранилище, позже узнаю как с ним
 storage_dict = {}
+
+# Объект класса ResumeRepository
+resume_repository = ResumeRepository(session=session)
 
 
 @find_job_router.message(F.text == "Создать резюме")
@@ -24,7 +32,6 @@ async def process_create_resume(message: types.Message, state: FSMContext):
          message (types.Message): Сообщение пользователя.
          state (FSMContext): Контекст состояния пользовательского диалога.
      """
-    print("Working")
     await state.set_state(FormToCreateResume.entering_name)
     await message.answer(
         "Имя Фамилия: ",
@@ -104,7 +111,20 @@ async def process_education(message: types.Message, state: FSMContext):
         Образование: {storage_dict["education"]}
         """
     )
-    print(storage_dict)
+    try:
+        await resume_repository.create_resume(
+            user_id=storage_dict["user_id"],
+            name=storage_dict["entering_name"],
+            skills=storage_dict["skills"],
+            experience=storage_dict["experience"],
+            education=storage_dict["education"]
+        )
+        await state.clear()
+        storage_dict.clear()
+    except Exception as ex:
+        print(f"Error occurred when you was trying to create resume: {ex}")
+
+
 
 
 
