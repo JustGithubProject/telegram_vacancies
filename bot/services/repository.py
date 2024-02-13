@@ -1,6 +1,9 @@
 from sqlalchemy import select
 
-from bot.db.models import Resume
+from bot.db.models import (
+    Resume,
+    Vacancy
+)
 
 
 class BaseRepository:
@@ -49,3 +52,53 @@ class ResumeRepository(BaseRepository):
         resumes = result.scalars().all()
         return resumes
 
+
+class VacancyRepository(BaseRepository):
+    def __init__(self, session):
+        super().__init__(session)
+
+    async def create_vacancy(
+        self,
+        user_id: int,
+        company_name: str,
+        description: str,
+        location: str,
+        salary: float,
+        contacts: str
+    ):
+        new_vacancy = Vacancy(
+            user_id=user_id,
+            company_name=company_name,
+            description=description,
+            location=location,
+            salary=salary,
+            contacts=contacts
+        )
+
+        self.session.add(new_vacancy)
+        await self.session.commit()
+        return new_vacancy
+
+    async def get_vacancy_by_id(
+        self,
+        vacancy_id: int
+    ):
+        result = await self.session.execute(select(Vacancy).filter(Vacancy.id == vacancy_id))
+        vacancy = result.scalars().first()
+        return vacancy
+
+    async def delete_vacancy(
+        self,
+        vacancy_id: int
+    ):
+        vacancy = await self.get_vacancy_by_id(vacancy_id)
+        if not vacancy:
+            raise ValueError(f"Vacancy with {vacancy_id} doesn't exist")
+
+        await self.session.delete(vacancy)
+        await self.session.commit()
+
+    async def list_vacancies(self):
+        result = await self.session.execute(select(Vacancy))
+        vacancies = result.scalars().all()
+        return vacancies

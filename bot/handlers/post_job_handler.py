@@ -8,9 +8,12 @@ from aiogram import (
     types
 )
 from aiogram.fsm.context import FSMContext
+
 from aiogram.types import ReplyKeyboardRemove
 
-from utils.helpers import FormToCreateVacancy
+
+from bot.utils.helpers import FormToCreateVacancy
+
 
 post_job_router = Router()
 
