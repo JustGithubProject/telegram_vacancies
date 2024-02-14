@@ -13,11 +13,15 @@ from aiogram.types import ReplyKeyboardRemove
 
 
 from bot.utils.helpers import FormToCreateVacancy
-
+from bot.services.repository import VacancyRepository
+from bot.db.database import session
 
 post_job_router = Router()
 
 storage_dict = {}
+
+# Объект класса VacancyRepository
+vacancy_repository = VacancyRepository(session=session)
 
 
 @post_job_router.message(F.text == "Создать вакансию")
@@ -102,6 +106,40 @@ async def process_salary(message: types.Message, state: FSMContext):
         "Контакты: "
     )
     storage_dict["salary"] = message.text
+
+
+@post_job_router.message(FormToCreateVacancy.contacts)
+async def process_contacts(message: types.Message, state: FSMContext):
+    await state.update_data(contacts=message.text)
+    storage_dict["contacts"] = message.text
+    storage_dict["user_id"] = message.from_user.id
+    await message.answer(
+        f"""
+        Вакансия:
+        Название компании: {storage_dict["company_name"]},
+        Описание: {storage_dict["description"]},
+        Местоположение: {storage_dict["location"]},
+        Зарплата: {storage_dict["salary"]},
+        Контакты: {storage_dict["contacts"]}    
+        """
+    )
+    try:
+        await vacancy_repository.create_vacancy(
+            user_id=storage_dict["user_id"],
+            company_name=storage_dict["company_name"],
+            description=storage_dict["description"],
+            location=storage_dict["location"],
+            salary=storage_dict["salary"],
+            contacts=storage_dict["contacts"]
+        )
+        await state.clear()
+        storage_dict.clear()
+
+    except Exception as ex:
+        print(f"Error occurred when you was trying to create vacancy: {ex}")
+
+
+
 
 
 
