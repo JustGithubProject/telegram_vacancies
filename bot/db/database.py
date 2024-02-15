@@ -1,7 +1,6 @@
 ##########################################################################################
 #  Модуль для работы с базой данных, например, сохранение данных о вакансиях и резюме    #
 ###########################################################################################
-import asyncio
 
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
@@ -14,10 +13,6 @@ from sqlalchemy.orm import (
 )
 
 from bot.config import config_variables
-
-from bot.utils.exceptions import (
-    DatabaseCreationError
-)
 
 
 # Асинхронный движок SQLAlchemy

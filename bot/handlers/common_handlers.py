@@ -20,8 +20,6 @@ from bot.db.database import session
 common_router = Router()
 
 
-
-
 @common_router.message()
 async def process_choice(message: types.Message):
     if message.text == "1️⃣ Я предлагаю работу":

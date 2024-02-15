@@ -14,10 +14,7 @@ from aiogram.enums import ParseMode
 
 from config import config_variables
 
-from bot.handlers.find_job_handler import find_job_router
-from bot.handlers.start_handler import start_router
-from bot.handlers.common_handlers import common_router
-from bot.handlers.post_job_handler import post_job_router
+from bot.handlers.base_handler import base_router
 
 
 async def main():
@@ -25,12 +22,7 @@ async def main():
     dp = Dispatcher()
 
     # Включение обработчиков роутеров для различных типов обработки запросов
-    dp.include_routers(
-        start_router,
-        find_job_router,
-        post_job_router,
-        common_router
-    )
+    dp.include_router(base_router)
 
     # Запуск бота с использованием диспетчера
     await dp.start_polling(bot)

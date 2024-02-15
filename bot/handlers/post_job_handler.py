@@ -110,6 +110,13 @@ async def process_salary(message: types.Message, state: FSMContext):
 
 @post_job_router.message(FormToCreateVacancy.contacts)
 async def process_contacts(message: types.Message, state: FSMContext):
+    """
+    Обрабатывает ввод контактов для вакансии при создании вакансии
+
+    Parameters:
+        message (types.Message): Сообщение пользователя с введенной зарплатой для вакансии.
+        state (FSMContext): Контекст состояния пользовательского диалога.
+    """
     await state.update_data(contacts=message.text)
     storage_dict["contacts"] = message.text
     storage_dict["user_id"] = message.from_user.id

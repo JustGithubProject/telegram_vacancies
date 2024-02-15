@@ -7,11 +7,13 @@ from bot.db.models import (
 
 
 class BaseRepository:
+    """Base class for repository implementations"""
     def __init__(self, session):
         self.session = session
 
 
 class ResumeRepository(BaseRepository):
+    """Repository for managing Resume objects in the database"""
     def __init__(self, session):
         super().__init__(session)
 
@@ -54,6 +56,7 @@ class ResumeRepository(BaseRepository):
 
 
 class VacancyRepository(BaseRepository):
+    """Repository for managing Vacancy objects in database"""
     def __init__(self, session):
         super().__init__(session)
 
