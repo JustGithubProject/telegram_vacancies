@@ -17,6 +17,7 @@ class Resume(Base):
     skills = Column(String)
     experience = Column(String)
     education = Column(String)
+    image_path = Column(String)
 
 
 class Vacancy(Base):

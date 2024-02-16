@@ -10,6 +10,7 @@ class FormToCreateResume(StatesGroup):
     skills = State()
     experience = State()
     education = State()
+    image_path = State()
 
 
 class FormToCreateVacancy(StatesGroup):

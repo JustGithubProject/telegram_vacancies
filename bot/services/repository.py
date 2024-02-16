@@ -23,14 +23,16 @@ class ResumeRepository(BaseRepository):
         name: str,
         skills: str,
         experience: str,
-        education: str
+        education: str,
+        image_path: str
     ):
         new_resume = Resume(
             user_id=user_id,
             name=name,
             skills=skills,
             experience=experience,
-            education=education
+            education=education,
+            image_path=image_path
         )
         self.session.add(new_resume)
         await self.session.commit()

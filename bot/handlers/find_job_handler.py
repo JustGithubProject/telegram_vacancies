@@ -101,29 +101,46 @@ async def process_education(message: types.Message, state: FSMContext):
         state (FSMContext): Контекст состояния пользовательского диалога.
     """
     await state.update_data(education=message.text)
-    storage_dict["education"] = message.text
+    await state.set_state(FormToCreateResume.image_path)
     await message.answer(
-        f"""
-        Резюме:
-        Имя: {storage_dict['entering_name']}
-        Навыки: {storage_dict["skills"]}
-        Опыт: {storage_dict["experience"]}
-        Образование: {storage_dict["education"]}
-        """
+        "Изображение: "
     )
+    storage_dict["education"] = message.text
+
+
+@find_job_router.message(FormToCreateResume.image_path)
+async def process_image_path(message: types.Message, state: FSMContext):
+    photo = message.photo[-1]
+    file_path = await photo.download(
+        destination=fr'D:/Users/Kropi/PycharmProjects/telegram_vacancy/bot/images/resumes/'
+    )
+    await state.update_data(image_path=file_path)
+    storage_dict["image_path"] = file_path
+    with open(storage_dict["image_path"], "rb") as photo_:
+        await message.answer_photo(
+            photo=photo_,
+            caption=f"""
+            Резюме:\n\t
+            Имя: {storage_dict["entering_name"]},\n\t
+            Навыки: {storage_dict["skills"]},\n\t
+            Опыт: {storage_dict["experience"]},\n\t
+            Образование: {storage_dict["education"]},\n\t
+            """
+        )
+
     try:
         await resume_repository.create_resume(
             user_id=storage_dict["user_id"],
             name=storage_dict["entering_name"],
             skills=storage_dict["skills"],
             experience=storage_dict["experience"],
-            education=storage_dict["education"]
+            education=storage_dict["education"],
+            image_path=file_path
         )
         await state.clear()
         storage_dict.clear()
     except Exception as ex:
         print(f"Error occurred when you was trying to create resume: {ex}")
-
 
 
 
