@@ -1,6 +1,8 @@
 #######################################
 # Вспомогательные функции и утилиты.  #
 #######################################
+
+
 from aiogram.fsm.state import State, StatesGroup
 
 
@@ -20,3 +22,6 @@ class FormToCreateVacancy(StatesGroup):
     salary = State()
     contacts = State()
     # ....
+
+
+

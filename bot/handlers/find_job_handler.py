@@ -1,8 +1,16 @@
 #######################################
 # Обработчик команды для поиска работы #
 #######################################
+import os
+import uuid
+
+import requests
+
+from aiogram import Bot
 from aiogram import Router, F
 from aiogram import types, html
+from aiogram.client import bot
+from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardRemove
 
@@ -12,7 +20,7 @@ from bot.utils.helpers import FormToCreateResume
 from bot.services.repository import ResumeRepository
 
 from bot.db.database import session
-
+from bot.config import config_variables
 
 find_job_router = Router()
 
@@ -21,6 +29,8 @@ storage_dict = {}
 
 # Объект класса ResumeRepository
 resume_repository = ResumeRepository(session=session)
+
+bot_find_job = Bot(token=config_variables.TOKEN, parse_mode=ParseMode.HTML)
 
 
 @find_job_router.message(F.text == "Создать резюме")
@@ -111,11 +121,23 @@ async def process_education(message: types.Message, state: FSMContext):
 @find_job_router.message(FormToCreateResume.image_path)
 async def process_image_path(message: types.Message, state: FSMContext):
     photo = message.photo[-1]
-    file_path = await photo.download(
-        destination=fr'D:/Users/Kropi/PycharmProjects/telegram_vacancy/bot/images/resumes/'
+    file_id = photo.file_id
+    destination = os.path.join(
+        'D:/Users/Kropi/PycharmProjects/telegram_vacancy/bot/images/resumes/',
+        f'photo_{uuid.uuid4()}.jpg'
     )
-    await state.update_data(image_path=file_path)
-    storage_dict["image_path"] = file_path
+    # Получить информацию о фотографии по её file_id
+    file = await bot_find_job.get_file(file_id)
+    file_path_original = file.file_path
+    file_url = f'https://api.telegram.org/file/bot{config_variables.TOKEN}/{file_path_original}'
+    response = requests.get(file_url)
+
+    if response.status_code == 200:
+        with open(destination, "wb") as f:
+            f.write(response.content)
+
+    await state.update_data(image_path=destination)
+    storage_dict["image_path"] = destination
     with open(storage_dict["image_path"], "rb") as photo_:
         await message.answer_photo(
             photo=photo_,
@@ -135,7 +157,7 @@ async def process_image_path(message: types.Message, state: FSMContext):
             skills=storage_dict["skills"],
             experience=storage_dict["experience"],
             education=storage_dict["education"],
-            image_path=file_path
+            image_path=destination
         )
         await state.clear()
         storage_dict.clear()
