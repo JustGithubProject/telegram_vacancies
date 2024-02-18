@@ -129,25 +129,31 @@ async def process_image_path(message: types.Message, state: FSMContext):
     # Получить информацию о фотографии по её file_id
     file = await bot_find_job.get_file(file_id)
     file_path_original = file.file_path
+    print(config_variables.TOKEN)
+    print(file_path_original)
     file_url = f'https://api.telegram.org/file/bot{config_variables.TOKEN}/{file_path_original}'
     response = requests.get(file_url)
-
+    print("After response")
     if response.status_code == 200:
         with open(destination, "wb") as f:
             f.write(response.content)
+    print("Image has been saved")
 
     await state.update_data(image_path=destination)
     storage_dict["image_path"] = destination
-    with open(storage_dict["image_path"], "rb") as photo_:
-        await message.answer_photo(
-            photo=photo_,
+    print("Trying to send photo")
+    with open(destination, 'rb') as photo_file:
+        photo_data = photo_file.read()
+        await bot_find_job.send_photo(
+            message.chat.id,
+            photo=types.InputFile(photo_data),
             caption=f"""
-            Резюме:\n\t
-            Имя: {storage_dict["entering_name"]},\n\t
-            Навыки: {storage_dict["skills"]},\n\t
-            Опыт: {storage_dict["experience"]},\n\t
-            Образование: {storage_dict["education"]},\n\t
-            """
+                    Резюме:\n\t
+                    Имя: {storage_dict["entering_name"]},\n\t
+                    Навыки: {storage_dict["skills"]},\n\t
+                    Опыт: {storage_dict["experience"]},\n\t
+                    Образование: {storage_dict["education"]},\n\t
+                    """
         )
 
     try:
@@ -162,7 +168,7 @@ async def process_image_path(message: types.Message, state: FSMContext):
         await state.clear()
         storage_dict.clear()
     except Exception as ex:
-        print(f"Error occurred when you was trying to create resume: {ex}")
+        print(f"Произошла ошибка при создании резюме: {ex}")
 
 
 
