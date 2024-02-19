@@ -122,39 +122,19 @@ async def process_education(message: types.Message, state: FSMContext):
 async def process_image_path(message: types.Message, state: FSMContext):
     photo = message.photo[-1]
     file_id = photo.file_id
-    destination = os.path.join(
-        'D:/Users/Kropi/PycharmProjects/telegram_vacancy/bot/images/resumes/',
-        f'photo_{uuid.uuid4()}.jpg'
-    )
-    # Получить информацию о фотографии по её file_id
-    file = await bot_find_job.get_file(file_id)
-    file_path_original = file.file_path
-    print(config_variables.TOKEN)
-    print(file_path_original)
-    file_url = f'https://api.telegram.org/file/bot{config_variables.TOKEN}/{file_path_original}'
-    response = requests.get(file_url)
-    print("After response")
-    if response.status_code == 200:
-        with open(destination, "wb") as f:
-            f.write(response.content)
-    print("Image has been saved")
 
-    await state.update_data(image_path=destination)
-    storage_dict["image_path"] = destination
-    print("Trying to send photo")
-    with open(destination, 'rb') as photo_file:
-        photo_data = photo_file.read()
-        await bot_find_job.send_photo(
-            message.chat.id,
-            photo=types.InputFile(photo_data),
-            caption=f"""
-                    Резюме:\n\t
-                    Имя: {storage_dict["entering_name"]},\n\t
-                    Навыки: {storage_dict["skills"]},\n\t
-                    Опыт: {storage_dict["experience"]},\n\t
-                    Образование: {storage_dict["education"]},\n\t
-                    """
-        )
+    await state.update_data(image_path=file_id)
+    storage_dict["image_path"] = file_id
+    await message.answer_photo(
+        photo=file_id,
+        caption=f"""
+                Резюме:\n\t\n\t
+                Имя: {storage_dict["entering_name"]},\n\t\n\t
+                Навыки: {storage_dict["skills"]},\n\t\n\t
+                Опыт: {storage_dict["experience"]},\n\t\n\t
+                Образование: {storage_dict["education"]},\n\t\n\t
+                """
+    )
 
     try:
         await resume_repository.create_resume(
@@ -163,7 +143,7 @@ async def process_image_path(message: types.Message, state: FSMContext):
             skills=storage_dict["skills"],
             experience=storage_dict["experience"],
             education=storage_dict["education"],
-            image_path=destination
+            image_path=storage_dict["image_path"]
         )
         await state.clear()
         storage_dict.clear()
