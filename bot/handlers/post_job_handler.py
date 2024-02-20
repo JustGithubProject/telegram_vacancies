@@ -24,7 +24,7 @@ storage_dict = {}
 vacancy_repository = VacancyRepository(session=session)
 
 
-@post_job_router.message(F.text == "Создать вакансию")
+@post_job_router.message(F.text == "4️⃣ Создать вакансию")
 async def process_create_vacancy(message: types.Message, state: FSMContext):
     """
     Обрабатывает запрос на создание новой вакансии.

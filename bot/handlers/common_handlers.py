@@ -26,8 +26,8 @@ async def process_choice(message: types.Message):
         await message.answer("✅ Вы выбрали: Я предлагаю работу", reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [
-                    KeyboardButton(text="Смотреть резюме"),
-                    KeyboardButton(text="Создать вакансию"),
+                    KeyboardButton(text="3️⃣ Смотреть резюме"),
+                    KeyboardButton(text="4️⃣ Создать вакансию"),
                 ]
             ],
             resize_keyboard=True
@@ -38,8 +38,8 @@ async def process_choice(message: types.Message):
         await message.answer("✅ Вы выбрали: Я ищу работу", reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [
-                    KeyboardButton(text="Смотреть вакансии"),
-                    KeyboardButton(text="Создать резюме")
+                    KeyboardButton(text="3️⃣ Смотреть вакансии"),
+                    KeyboardButton(text="4️⃣ Создать резюме")
                 ]
             ],
             resize_keyboard=True

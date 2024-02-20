@@ -14,7 +14,7 @@ display_resume_router = Router()
 resume_repository = ResumeRepository(session=session)
 
 
-@display_resume_router.message(F.text == "Смотреть резюме")
+@display_resume_router.message(F.text == "3️⃣ Смотреть резюме")
 async def display_resume_process(message: types.Message):
     resumes_list = await resume_repository.list_resumes()
     resumes_list = list(resumes_list)
