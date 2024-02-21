@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  app:
+    build: ./app
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 220285
+      POSTGRES_DB: WorkBotDb
+    volumes:
+      - db_data:/var/lib/postgresql/data
