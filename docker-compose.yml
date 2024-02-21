@@ -7,11 +7,17 @@ services:
       - db
 
   db:
-    image: postgres
+    image: postgres:13.3
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 220285
       POSTGRES_DB: WorkBotDb
+    ports:
+      - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+    driver: local
