@@ -30,3 +30,4 @@ class Vacancy(Base):
     location = Column(String)
     salary = Column(Float(precision=2))
     contacts = Column(String)
+    image_path = Column(String)

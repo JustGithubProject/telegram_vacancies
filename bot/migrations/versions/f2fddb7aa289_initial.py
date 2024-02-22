@@ -22,11 +22,11 @@ def upgrade() -> None:
     op.create_table(
         'resume',
         sa.Column('id', sa.Integer, primary_key=True, index=True),
-        sa.Column("user_id", sa.Integer),
-        sa.Column("name", sa.String, nullable=False),
-        sa.Column("skills", sa.String),
-        sa.Column("experience", sa.String),
-        sa.Column("education", sa.String)
+        sa.Column('user_id', sa.Integer),
+        sa.Column('name', sa.String, nullable=False),
+        sa.Column('skills', sa.String),
+        sa.Column('experience', sa.String),
+        sa.Column('education', sa.String)
     )
 
 
