@@ -118,18 +118,36 @@ async def process_contacts(message: types.Message, state: FSMContext):
         state (FSMContext): Контекст состояния пользовательского диалога.
     """
     await state.update_data(contacts=message.text)
+    await state.set_state(FormToCreateVacancy.image_path)
     storage_dict["contacts"] = message.text
     storage_dict["user_id"] = message.from_user.id
     await message.answer(
-        f"""
-        Вакансия:
-        Название компании: {storage_dict["company_name"]},
-        Описание: {storage_dict["description"]},
-        Местоположение: {storage_dict["location"]},
-        Зарплата: {storage_dict["salary"]},
-        Контакты: {storage_dict["contacts"]}    
-        """
+        "⬜ Изображение: ",
     )
+
+
+@post_job_router.message(FormToCreateVacancy.image_path)
+async def process_image_path(message: types.Message, state: FSMContext):
+    photo = message.photo[-1]
+    file_id = photo.file_id
+
+    await state.update_data(image_path=message.text)
+    storage_dict["image_path"] = file_id
+
+    await message.answer_photo(
+        photo=file_id,
+        caption=(
+            f"""
+             Вакансия:
+             Название компании: {storage_dict["company_name"]},
+             Описание: {storage_dict["description"]},
+             Местоположение: {storage_dict["location"]},
+             Зарплата: {storage_dict["salary"]},
+             Контакты: {storage_dict["contacts"]}    
+        """
+        )
+    )
+
     try:
         await vacancy_repository.create_vacancy(
             user_id=storage_dict["user_id"],
@@ -137,13 +155,14 @@ async def process_contacts(message: types.Message, state: FSMContext):
             description=storage_dict["description"],
             location=storage_dict["location"],
             salary=storage_dict["salary"],
-            contacts=storage_dict["contacts"]
+            contacts=storage_dict["contacts"],
+            image_path=storage_dict["image_path"]
+
         )
         await state.clear()
         storage_dict.clear()
-
     except Exception as ex:
-        print(f"Error occurred when you was trying to create vacancy: {ex}")
+        print(f"Failure to create vacancy: {ex}")
 
 
 

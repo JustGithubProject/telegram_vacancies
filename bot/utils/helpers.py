@@ -21,6 +21,7 @@ class FormToCreateVacancy(StatesGroup):
     location = State()
     salary = State()
     contacts = State()
+    image_path = State()
     # ....
 
 

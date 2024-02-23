@@ -69,7 +69,8 @@ class VacancyRepository(BaseRepository):
         description: str,
         location: str,
         salary: float,
-        contacts: str
+        contacts: str,
+        image_path: str
     ):
         new_vacancy = Vacancy(
             user_id=user_id,
@@ -77,7 +78,8 @@ class VacancyRepository(BaseRepository):
             description=description,
             location=location,
             salary=salary,
-            contacts=contacts
+            contacts=contacts,
+            image_path=image_path
         )
 
         self.session.add(new_vacancy)

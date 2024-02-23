@@ -16,6 +16,7 @@ resume_repository = ResumeRepository(session=session)
 
 @display_resume_router.message(F.text == "3️⃣ Смотреть резюме")
 async def display_resume_process(message: types.Message):
+    """Handler to display whole resumes"""
     resumes_list = await resume_repository.list_resumes()
     resumes_list = list(resumes_list)
     for item in resumes_list:
