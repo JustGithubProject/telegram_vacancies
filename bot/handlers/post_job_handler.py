@@ -7,6 +7,7 @@ from aiogram import (
     F,
     types
 )
+from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 
 from aiogram.types import ReplyKeyboardRemove
@@ -35,7 +36,7 @@ async def process_create_vacancy(message: types.Message, state: FSMContext):
     """
     await state.set_state(FormToCreateVacancy.company_name)
     await message.answer(
-        "Название компании: ",
+        "🏢 Название компании: ",
         reply_markup=ReplyKeyboardRemove()
     )
 
@@ -52,7 +53,7 @@ async def process_company_name(message: types.Message, state: FSMContext):
     await state.update_data(company_name=message.text)
     await state.set_state(FormToCreateVacancy.description)
     await message.answer(
-        "Описание: "
+        "📖 Описание: "
     )
     storage_dict["company_name"] = message.text
 
@@ -69,7 +70,7 @@ async def process_description(message: types.Message, state: FSMContext):
     await state.update_data(description=message.text)
     await state.set_state(FormToCreateVacancy.location)
     await message.answer(
-        "Местоположение: "
+        "🌍 Местоположение: "
     )
     storage_dict["description"] = message.text
 
@@ -86,7 +87,7 @@ async def process_location(message: types.Message, state: FSMContext):
     await state.update_data(location=message.text)
     await state.set_state(FormToCreateVacancy.salary)
     await message.answer(
-        "Зарплата: "
+        "💸 Зарплата: "
     )
     storage_dict["location"] = message.text
 
@@ -103,7 +104,7 @@ async def process_salary(message: types.Message, state: FSMContext):
     await state.update_data(salary=message.text)
     await state.set_state(FormToCreateVacancy.contacts)
     await message.answer(
-        "Контакты: "
+        "☎️ Контакты: "
     )
     storage_dict["salary"] = message.text
 
@@ -134,18 +135,21 @@ async def process_image_path(message: types.Message, state: FSMContext):
     await state.update_data(image_path=message.text)
     storage_dict["image_path"] = file_id
 
+    vacancy_info = (
+        f"""
+            <b>Вакансия:</b>\n
+            <b>Название компании:</b> {storage_dict["company_name"]}\n
+            <b>Описание:</b> {storage_dict["description"]}\n
+            <b>Местоположение:</b> {storage_dict["location"]}\n
+            <b>Зарплата:</b> {storage_dict["salary"]}\n
+            <b>Контакты:</b> {storage_dict["contacts"]}\n
+            """
+    )
+
     await message.answer_photo(
         photo=file_id,
-        caption=(
-            f"""
-             Вакансия:
-             Название компании: {storage_dict["company_name"]},
-             Описание: {storage_dict["description"]},
-             Местоположение: {storage_dict["location"]},
-             Зарплата: {storage_dict["salary"]},
-             Контакты: {storage_dict["contacts"]}    
-        """
-        )
+        caption=vacancy_info,
+        parse_mode=ParseMode.HTML
     )
 
     try:
@@ -154,7 +158,7 @@ async def process_image_path(message: types.Message, state: FSMContext):
             company_name=storage_dict["company_name"],
             description=storage_dict["description"],
             location=storage_dict["location"],
-            salary=storage_dict["salary"],
+            salary=float(storage_dict["salary"]),
             contacts=storage_dict["contacts"],
             image_path=storage_dict["image_path"]
 
