@@ -9,6 +9,7 @@ from aiogram import (
 )
 from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
+from aiogram.types import ReplyKeyboardMarkup
 
 from aiogram.types import ReplyKeyboardRemove
 
@@ -16,6 +17,10 @@ from aiogram.types import ReplyKeyboardRemove
 from bot.utils.helpers import FormToCreateVacancy
 from bot.services.repository import VacancyRepository
 from bot.db.database import session
+
+from bot.utils.keyboards import (
+    LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER
+)
 
 post_job_router = Router()
 
@@ -149,6 +154,10 @@ async def process_image_path(message: types.Message, state: FSMContext):
     await message.answer_photo(
         photo=file_id,
         caption=vacancy_info,
+        keyboard_markup=ReplyKeyboardMarkup(
+            keyboard=LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER,
+            resize_keyboard=True
+        ),
         parse_mode=ParseMode.HTML
     )
 

@@ -12,6 +12,7 @@ from aiogram import types, html
 from aiogram.client import bot
 from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
+from aiogram.types import ReplyKeyboardMarkup
 from aiogram.types import ReplyKeyboardRemove
 
 from bot.utils.helpers import FormToCreateResume
@@ -21,6 +22,10 @@ from bot.services.repository import ResumeRepository
 
 from bot.db.database import session
 from bot.config import config_variables
+
+from bot.utils.keyboards import (
+    LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER
+)
 
 find_job_router = Router()
 
@@ -133,7 +138,12 @@ async def process_image_path(message: types.Message, state: FSMContext):
                 Навыки: {storage_dict["skills"]},\n\t\n\t
                 Опыт: {storage_dict["experience"]},\n\t\n\t
                 Образование: {storage_dict["education"]},\n\t\n\t
-                """
+                """,
+        reply_markup=ReplyKeyboardMarkup(
+            keyboard=LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER,
+            resize_keyboard=True
+        )
+
     )
 
     try:

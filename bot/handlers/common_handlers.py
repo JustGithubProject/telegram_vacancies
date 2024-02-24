@@ -7,14 +7,16 @@ from aiogram import (
     F
 )
 
-from aiogram.fsm.context import FSMContext
 from aiogram.types import (
     KeyboardButton,
     ReplyKeyboardMarkup
 )
 
-from bot.services.repository import ResumeRepository
-from bot.db.database import session
+from bot.utils.keyboards import (
+    LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_FIRST_OPTION,
+    LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_SECOND_OPTION
+)
+
 
 # router for handlers
 common_router = Router()
@@ -24,24 +26,14 @@ common_router = Router()
 async def process_choice(message: types.Message):
     if message.text == "1️⃣ Я предлагаю работу":
         await message.answer("✅ Вы выбрали: Я предлагаю работу", reply_markup=ReplyKeyboardMarkup(
-            keyboard=[
-                [
-                    KeyboardButton(text="3️⃣ Смотреть резюме"),
-                    KeyboardButton(text="4️⃣ Создать вакансию"),
-                ]
-            ],
+            keyboard=LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_FIRST_OPTION,
             resize_keyboard=True
         )
     )
 
     elif message.text == "2️⃣ Я ищу работу":
         await message.answer("✅ Вы выбрали: Я ищу работу", reply_markup=ReplyKeyboardMarkup(
-            keyboard=[
-                [
-                    KeyboardButton(text="3️⃣ Смотреть вакансии"),
-                    KeyboardButton(text="4️⃣ Создать резюме")
-                ]
-            ],
+            keyboard=LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_SECOND_OPTION,
             resize_keyboard=True
         )
     )
