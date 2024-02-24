@@ -146,6 +146,7 @@ async def process_image_path(message: types.Message, state: FSMContext):
 
     )
 
+    # Создаем резюме на основе полученных данных
     try:
         await resume_repository.create_resume(
             user_id=storage_dict["user_id"],

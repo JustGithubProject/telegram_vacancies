@@ -134,6 +134,13 @@ async def process_contacts(message: types.Message, state: FSMContext):
 
 @post_job_router.message(FormToCreateVacancy.image_path)
 async def process_image_path(message: types.Message, state: FSMContext):
+    """
+    Обрабатывает ввод изображения для вакансии при создании вакансии
+
+    Parameters:
+        message (types.Message): Сообщение пользователя с введенной зарплатой для вакансии.
+        state (FSMContext): Контекст состояния пользовательского диалога.
+    """
     photo = message.photo[-1]
     file_id = photo.file_id
 
@@ -154,13 +161,14 @@ async def process_image_path(message: types.Message, state: FSMContext):
     await message.answer_photo(
         photo=file_id,
         caption=vacancy_info,
-        keyboard_markup=ReplyKeyboardMarkup(
+        reply_markup=ReplyKeyboardMarkup(
             keyboard=LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER,
             resize_keyboard=True
         ),
-        parse_mode=ParseMode.HTML
+
     )
 
+    # Создаем вакансию на основе полученных данных
     try:
         await vacancy_repository.create_vacancy(
             user_id=storage_dict["user_id"],

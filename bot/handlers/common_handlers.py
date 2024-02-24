@@ -14,11 +14,12 @@ from aiogram.types import (
 
 from bot.utils.keyboards import (
     LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_FIRST_OPTION,
-    LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_SECOND_OPTION
+    LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_SECOND_OPTION,
 )
 
 
 # router for handlers
+
 common_router = Router()
 
 
@@ -37,5 +38,4 @@ async def process_choice(message: types.Message):
             resize_keyboard=True
         )
     )
-
 
