@@ -8,7 +8,6 @@ from bot.handlers.post_job_handler import post_job_router
 from bot.handlers.start_handler import start_router
 from bot.handlers.display_resumes import display_resume_router
 from bot.handlers.display_vacancies import display_vacancy_router
-from bot.handlers.back_handler import back_router
 
 
 base_router = Router()

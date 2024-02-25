@@ -38,6 +38,17 @@ resume_repository = ResumeRepository(session=session)
 bot_find_job = Bot(token=config_variables.TOKEN, parse_mode=ParseMode.HTML)
 
 
+@find_job_router.message(F.text == "🔙 НАЗАД")
+async def process_back_to_start(message: types.Message):
+    await message.answer(
+        "BACK",
+        reply_markup=ReplyKeyboardMarkup(
+            keyboard=LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER,
+            resize_keyboard=True
+        )
+    )
+
+
 @find_job_router.message(F.text == "4️⃣ Создать резюме")
 async def process_create_resume(message: types.Message, state: FSMContext):
     """

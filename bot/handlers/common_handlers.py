@@ -6,6 +6,7 @@ from aiogram import (
     types,
     F
 )
+from aiogram.types import ForceReply
 
 from aiogram.types import (
     KeyboardButton,
@@ -15,6 +16,7 @@ from aiogram.types import (
 from bot.utils.keyboards import (
     LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_FIRST_OPTION,
     LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_SECOND_OPTION,
+    LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER
 )
 
 

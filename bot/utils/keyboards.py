@@ -20,6 +20,7 @@ LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_FIRST_OPTION = [
 LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_SECOND_OPTION = [
     [
         KeyboardButton(text="3️⃣ Смотреть вакансии"),
-        KeyboardButton(text="4️⃣ Создать резюме")
+        KeyboardButton(text="4️⃣ Создать резюме"),
+        KeyboardButton(text="🔙 НАЗАД")
     ]
 ]
