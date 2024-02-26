@@ -15,15 +15,15 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import ReplyKeyboardMarkup
 from aiogram.types import ReplyKeyboardRemove
 
-from bot.utils.helpers import FormToCreateResume
+from utils.helpers import FormToCreateResume
 
 
-from bot.services.repository import ResumeRepository
+from services.repository import ResumeRepository
 
-from bot.db.database import session
-from bot.config import config_variables
+from db.database import session
+from config import config_variables
 
-from bot.utils.keyboards import (
+from utils.keyboards import (
     LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER
 )
 

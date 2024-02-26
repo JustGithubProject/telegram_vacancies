@@ -1,6 +1,6 @@
 from sqlalchemy import select
 
-from bot.db.models import (
+from db.models import (
     Resume,
     Vacancy
 )

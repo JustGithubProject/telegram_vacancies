@@ -12,7 +12,7 @@ from sqlalchemy.orm import (
     sessionmaker
 )
 
-from bot.config import config_variables
+from config import config_variables
 
 
 # Асинхронный движок SQLAlchemy

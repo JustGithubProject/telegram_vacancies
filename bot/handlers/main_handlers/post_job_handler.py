@@ -14,11 +14,11 @@ from aiogram.types import ReplyKeyboardMarkup
 from aiogram.types import ReplyKeyboardRemove
 
 
-from bot.utils.helpers import FormToCreateVacancy
-from bot.services.repository import VacancyRepository
-from bot.db.database import session
+from utils.helpers import FormToCreateVacancy
+from services.repository import VacancyRepository
+from db.database import session
 
-from bot.utils.keyboards import (
+from utils.keyboards import (
     LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER
 )
 

@@ -4,9 +4,9 @@ from aiogram import (
     F
 )
 
-from bot.services.repository import ResumeRepository
+from services.repository import ResumeRepository
 
-from bot.db.database import session
+from db.database import session
 
 
 display_resume_router = Router()

@@ -13,7 +13,7 @@ from aiogram.types import (
     ReplyKeyboardMarkup
 )
 
-from bot.utils.keyboards import (
+from utils.keyboards import (
     LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_FIRST_OPTION,
     LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_SECOND_OPTION,
     LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER

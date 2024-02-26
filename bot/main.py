@@ -14,7 +14,7 @@ from aiogram.enums import ParseMode
 
 from config import config_variables
 
-from bot.handlers.base_handler import base_router
+from handlers.base_handler import base_router
 
 
 async def main():

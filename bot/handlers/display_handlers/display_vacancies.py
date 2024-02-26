@@ -4,9 +4,9 @@ from aiogram import (
     Router
 )
 
-from bot.services.repository import VacancyRepository
+from services.repository import VacancyRepository
 
-from bot.db.database import session
+from db.database import session
 
 # Router that will contain on handler to send list of vacancies to user
 display_vacancy_router = Router()
@@ -34,7 +34,6 @@ async def display_vacancy_process(message: types.Message):
                 """
             )
         )
-
 
 
 

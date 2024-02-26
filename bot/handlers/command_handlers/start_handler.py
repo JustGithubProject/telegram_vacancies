@@ -6,7 +6,7 @@ from aiogram.types import ReplyKeyboardMarkup
 from aiogram.filters import Command
 from aiogram import types
 
-from bot.utils.keyboards import (
+from utils.keyboards import (
     LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER
 )
 start_router = Router()
