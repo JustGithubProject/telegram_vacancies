@@ -27,6 +27,7 @@ common_router = Router()
 
 @common_router.message()
 async def process_choice(message: types.Message):
+    """Обработка первой клавиатуры бота"""
     if message.text == "1️⃣ Я предлагаю работу":
         await message.answer("✅ Вы выбрали: Я предлагаю работу", reply_markup=ReplyKeyboardMarkup(
             keyboard=LIST_KEYBOARD_BUTTONS_FOR_COMMON_HANDLER_FIRST_OPTION,

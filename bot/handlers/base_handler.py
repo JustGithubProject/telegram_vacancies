@@ -9,7 +9,7 @@ from handlers.command_handlers.start_handler import start_router
 from handlers.display_handlers.display_resumes import display_resume_router
 from handlers.display_handlers.display_vacancies import display_vacancy_router
 
-
+# Базовый роутер, который подключает остальные роутеры
 base_router = Router()
 
 base_router.include_routers(
