@@ -8,5 +8,8 @@ RUN apk update && \
 COPY . .
 RUN pip install -r requirements.txt
 
+CMD ["alembic", "upgrade", "f2fddb7aa289"]
+CMD ["alembic", "upgrade", "e8cf06ef45f8"]
+CMD ["alembic", "upgrade", "1092f3b009ef"]
 CMD ["cd", "bot"]
 CMD ["python", "bot/main.py"]
