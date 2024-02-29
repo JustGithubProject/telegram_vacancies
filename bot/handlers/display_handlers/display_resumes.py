@@ -1,13 +1,11 @@
 from typing import List
 
-from aiogram import Dispatcher
 from aiogram import (
     types,
     Router,
     F
 )
 from aiogram.types import ReplyKeyboardMarkup
-from aiogram.utils.formatting import Text
 
 from db.models import Resume
 from services.repository import ResumeRepository
@@ -15,11 +13,14 @@ from services.repository import ResumeRepository
 from db.database import session
 from utils.keyboards import LIST_KEYBOARD_BUTTONS_FOR_DISPLAY_RESUME_HANDLER
 
+
 display_resume_router = Router()
 
+# Creating a repository instance
 resume_repository = ResumeRepository(session=session)
 
 
+# Global variable to keep track of resume index
 index = 0
 
 
@@ -27,7 +28,7 @@ async def send_resume(message: types.Message, resumes_list: List[Resume], index_
     global index
     if index >= len(resumes_list):
         index = 0
-        await message.answer("Больше нет новых резюме")
+        await message.answer("Больше нет новых резюме. Нажмите next, чтобы начать с начала")
 
     item = resumes_list[index_of_resume]
 

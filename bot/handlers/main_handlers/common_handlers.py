@@ -21,7 +21,6 @@ from utils.keyboards import (
 
 
 # router for handlers
-
 common_router = Router()
 
 

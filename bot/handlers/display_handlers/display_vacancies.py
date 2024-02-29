@@ -19,17 +19,19 @@ from utils.keyboards import (
 )
 display_vacancy_router = Router()
 
-# Repository to get list of vacancies
+# Creating a repository instance
 vacancy_repository = VacancyRepository(session=session)
 
+# Global variable to keep track of vacancy index
 index = 0
 
 
 async def send_vacancy(message: types.Message, vacancies_list: List[Vacancy], index_of_vacancy: int):
+    """Function to send a resume message"""
     global index
     if index >= len(vacancies_list):
         index = 0
-        await message.answer("Больше нет новых вакансий")
+        await message.answer("Больше нет новых вакансий.Нажмите next, чтобы начать с начала")
 
     item = vacancies_list[index_of_vacancy]
     await message.answer_photo(
@@ -65,6 +67,7 @@ async def display_vacancy_process(message: types.Message):
 
 @display_vacancy_router.message(F.text == "NEXT")
 async def next_vacancy(message: types.Message):
+    """Handler to display next resume"""
     vacancies_list = await vacancy_repository.list_vacancies()
     vacancies_list = list(vacancies_list)
     global index

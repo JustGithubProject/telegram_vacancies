@@ -9,6 +9,7 @@ from db.database import Base
 
 
 class Resume(Base):
+    """Model that represents resume table in database"""
     __tablename__ = "resume"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -21,6 +22,7 @@ class Resume(Base):
 
 
 class Vacancy(Base):
+    """Model that represents vacancy table in database"""
     __tablename__ = "vacancy"
 
     id = Column(Integer, primary_key=True, index=True)

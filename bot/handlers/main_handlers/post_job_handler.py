@@ -22,8 +22,10 @@ from utils.keyboards import (
     LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER
 )
 
+
 post_job_router = Router()
 
+# Временное хранилище
 storage_dict = {}
 
 # Объект класса VacancyRepository

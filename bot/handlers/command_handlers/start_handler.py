@@ -9,6 +9,8 @@ from aiogram import types
 from utils.keyboards import (
     LIST_KEYBOARD_BUTTONS_FOR_START_HANDLER
 )
+
+
 start_router = Router()
 
 
